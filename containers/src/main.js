@@ -19,15 +19,16 @@ app.get("/", (req,res) => {
     res.send("ayo this the message dawg")
 })
 
-app.get("/command", (req,res) => {
-    // const command = req.body.command
+app.post("/run", (req,res) => {
+    // add validation for command
+    console.log(req.body)
+    const command = req.body.command
 
-    exec('ls', (err, stdout, stderr) => {
+    exec(command, (err, stdout, stderr) => {
       if (err) {
         console.error(err)
-        return 
+        return res.send(stderr)
       }
-
       res.send(stdout)
     })
 })
